@@ -41,6 +41,7 @@ jobs:
             stylelint "**/*.css"
           else
             echo "Nenhum arquivo CSS encontrado"
+          fi
       
       - name: Validar Código JavaScript
         run: | 
@@ -50,3 +51,4 @@ jobs:
             eslint "**/*.js"
           else
             echo "Nenhum arquivo JS encontrado"
+          fi       
