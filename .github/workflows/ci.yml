@@ -31,5 +31,12 @@ jobs:
       
       - name: Validar Código
         run: | 
-          eslint .
+          # Lista todos os arquivos .js e verifica se existe pelo menos 1
+          if ls **/*.js 1> /dev/null 2>&1; then
+            echo "Validando JavaScript..."
+            eslint "**/*.js"
+          else
+            echo "Nenhum arquivo JS encontrado"
+          fi
+          
           htmlhint "**/*.html"
