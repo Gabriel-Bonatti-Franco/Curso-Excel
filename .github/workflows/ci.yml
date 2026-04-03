@@ -27,7 +27,7 @@ jobs:
           
       - name: Instalar HTMLHint, StyleLint e ESLint
         run: |
-          npm install -g htmlhint stylelint eslint
+          npm install -g htmlhint@1 stylelint@15 eslint@8
 
       - name: Validar Código HTML
         run: | 
@@ -35,8 +35,8 @@ jobs:
 
       - name: Validar Código CSS
         run: | 
-          # Lista todos os arquivos .html e verifica se existe pelo menos 1
-          if ls "**/*.css" 1> /dev/null 2>&1; then
+          # Lista todos os arquivos .css e verifica se existe pelo menos 1
+          if find . -name "*.css" | grep -q .; then
             echo "Validando css..."
             stylelint "**/*.css"
           else
@@ -45,7 +45,7 @@ jobs:
       - name: Validar Código JavaScript
         run: | 
           # Lista todos os arquivos .js e verifica se existe pelo menos 1
-          if ls **/*.js 1> /dev/null 2>&1; then
+          if find . -name "*.js" | grep -q .; then
             echo "Validando JavaScript..."
             eslint "**/*.js"
           else
