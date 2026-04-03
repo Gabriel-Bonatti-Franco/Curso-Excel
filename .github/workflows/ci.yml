@@ -25,18 +25,13 @@ jobs:
         with:
           node-version: 20
           
-      - name: Instalar ESLint e HTMLHint
+      - name: Instalar HTMLHint, StyleLint e ESLint
         run: |
           npm install -g htmlhint stylelint eslint
 
       - name: Validar Código HTML
         run: | 
-          # Lista todos os arquivos .html e verifica se existe pelo menos 1
-          if ls "**/*.html" 1> /dev/null 2>&1; then
-            echo "Validando HTML..."
-            htmlhint "**/*.html"
-          else
-            echo "Nenhum arquivo HTML encontrado"
+          htmlhint "**/*.html"
 
       - name: Validar Código CSS
         run: | 
