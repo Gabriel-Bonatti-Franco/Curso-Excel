@@ -1,0 +1,35 @@
+name: CI - Continuous Integration
+
+on:
+  push:
+    branches: [ "main" , "feature" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Debug Inicial
+        run: |
+          echo "Verificando arquivos..."
+          ls -la
+
+      # Validação do código HTML
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      - name: Instalar ESLint e HTMLHint
+        run: |
+          npm install -g eslint@8 htmlhint@1
+      
+      - name: Validar Código
+        run: | 
+          eslint .
+          htmlhint "**/*.html"
