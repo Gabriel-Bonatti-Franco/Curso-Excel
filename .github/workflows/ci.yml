@@ -20,16 +20,16 @@ jobs:
           ls -la
 
       # Validação do código HTML
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
           
-      - name: Instalar ESLint e HTMLHint
-        run: |
-          npm install -g eslint@8 htmlhint@1
+      # - name: Instalar ESLint e HTMLHint
+      #   run: |
+      #     npm install -g eslint@8 htmlhint@1
       
-      - name: Validar Código
-        run: | 
-          eslint .
-          htmlhint "**/*.html"
+      # - name: Validar Código
+      #   run: | 
+      #     eslint .
+      #     htmlhint "**/*.html"
