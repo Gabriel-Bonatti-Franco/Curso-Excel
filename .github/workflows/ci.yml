@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
     
 jobs:
-  validate:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,16 +20,35 @@ jobs:
           ls -la
 
       # Validação do código HTML
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
           
-      # - name: Instalar ESLint e HTMLHint
-      #   run: |
-      #     npm install -g eslint@8 htmlhint@1
+      - name: Instalar HTMLHint, StyleLint e ESLint
+        run: |
+          npm install -g htmlhint@1 stylelint@15 eslint@8
+
+      - name: Validar Código HTML
+        run: | 
+          htmlhint "**/*.html"
+
+      - name: Validar Código CSS
+        run: | 
+          # Lista todos os arquivos .css e verifica se existe pelo menos 1
+          if find . -name "*.css" | grep -q .; then
+            echo "Validando css..."
+            stylelint "**/*.css"
+          else
+            echo "Nenhum arquivo CSS encontrado"
+          fi
       
-      # - name: Validar Código
-      #   run: | 
-      #     eslint .
-      #     htmlhint "**/*.html"
+      - name: Validar Código JavaScript
+        run: | 
+          # Lista todos os arquivos .js e verifica se existe pelo menos 1
+          if find . -name "*.js" | grep -q .; then
+            echo "Validando JavaScript..."
+            eslint "**/*.js"
+          else
+            echo "Nenhum arquivo JS encontrado"
+          fi       
