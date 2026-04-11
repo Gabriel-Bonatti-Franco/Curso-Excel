@@ -7,7 +7,7 @@ if "%~1"=="" (
 )
 
 git add . || goto error
-git commit -m "%*" || goto error
+git commit -m "%1" || goto error
 git push || goto error
 
 echo Done.
