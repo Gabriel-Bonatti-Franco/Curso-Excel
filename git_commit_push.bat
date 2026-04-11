@@ -1,6 +1,6 @@
 @echo off
 
-if "%~1"=="" (
+if %1=="" (
     echo Error: you must provide a commit message.
     echo Usage: script.bat "your commit message"
     exit /b 1
@@ -10,6 +10,7 @@ git add . || goto error
 git commit -m %1 || goto error
 git push || goto error
 
+echo
 echo Done.
 exit /b 0
 

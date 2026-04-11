@@ -4,71 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso de Excel</title>
-    <style>
-        body{
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
 
-        nav{
-            padding: 0 12px;
-            background-color: rgb(9, 53, 3);
-            color: white;
-        }
-        
-        nav, nav ul{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-        }
+    <script src="./components/nav_menu.js" defer></script>
+    <link rel="stylesheet" href="/src/style/style.css">
 
-        nav li a{
-            padding: 2px 8px;
-            text-decoration: none;
-            color: white;
-            border-right: white 2px solid;
-        }
-
-        nav li a:hover{
-            text-decoration: underline;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo img{
-            height: 36px;
-        }
-
-        .content{
-            padding: 0 20px;
-        }
-    </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <img src="src\img\excel-icon.png" alt="logo-do-excel">
-            <span>Curso de Excel</span>
-        </div>
-        <ul>
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#aulas">Aulas</a></li>
-            <li><a href="#sobre">Trilhas</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-    </nav>
+    <nav-menu></nav-menu>
     <div class="content">
-        <div class="pesquisa">
-
-        </div>
-
         <p>Bem-vindo ao curso de Excel. Aqui você aprenderá a utilizar esta poderosa ferramenta para gerenciar e analisar dados de maneira eficiente.</p>
 
         <ol>
