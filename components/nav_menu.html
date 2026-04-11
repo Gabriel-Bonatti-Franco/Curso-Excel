@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<style>
+    nav{
+            padding: 0 12px;
+            background-color: rgb(9, 53, 3);
+            color: white;
+        }
+        
+        nav, nav ul{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        nav li a{
+            padding: 2px 8px;
+            text-decoration: none;
+            color: white;
+            border-right: white 2px solid;
+        }
+
+        nav li a:hover{
+            text-decoration: underline;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img{
+            height: 36px;
+        }
+</style>
+
+<nav>
+    <div class="logo">
+    <img src="/src/img/excel-icon.png" alt="logo">
+    <span>Curso de Excel</span>
+    </div>
+    <ul>
+    <li><a href="/index.html">Início</a></li>
+    <li><a href="/pages/aulas.html">Aulas</a></li>
+    <li><a href="/pages/trilhas.html">Trilhas</a></li>
+    <li><a href="/pages/contato.html">Contato</a></li>
+    </ul>
+</nav>
