@@ -31,14 +31,14 @@ jobs:
 
       - name: Validar Código HTML
         run: | 
-          htmlhint "**/*.html"
+          htmlhint "**/*.html" --config config\.htmlhintrc
 
       - name: Validar Código CSS
         run: | 
           # Lista todos os arquivos .css e verifica se existe pelo menos 1
           if find . -name "*.css" | grep -q .; then
             echo "Validando css..."
-            stylelint "**/*.css"
+            stylelint "**/*.css" --config config\.stylelintrc.json
           else
             echo "Nenhum arquivo CSS encontrado"
           fi
@@ -48,7 +48,7 @@ jobs:
           # Lista todos os arquivos .js e verifica se existe pelo menos 1
           if find . -name "*.js" | grep -q .; then
             echo "Validando JavaScript..."
-            eslint "**/*.js"
+            eslint "**/*.js" --config config\.eslintrc.json
           else
             echo "Nenhum arquivo JS encontrado"
           fi       
