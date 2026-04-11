@@ -10,7 +10,6 @@ git add . || goto error
 git commit -m %1 || goto error
 git push || goto error
 
-echo
 echo Done.
 exit /b 0
 
