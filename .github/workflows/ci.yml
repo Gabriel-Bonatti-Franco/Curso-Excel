@@ -11,21 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Código
+      - name: Code Checkout
         uses: actions/checkout@v4
 
-      - name: Debug Inicial
+      - name: Initial Debug
         run: |
-          echo "Verificando arquivos..."
+          echo "Checking files..."
           ls -la
 
-      # Validação do código HTML
+      # HTML code validation
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           
-      - name: Instalar HTMLHint, StyleLint e ESLint
+      - name: Install HTMLHint, StyleLint and ESLint
         run: |
           npm install -g \
             htmlhint@1 \
@@ -33,35 +33,57 @@ jobs:
             stylelint@15 \
             stylelint-config-standard@34
 
-      - name: Validar Código HTML
+      - name: HTML Validation
         run: | 
-          # Html Validation
-          echo "========== VALIDANDO HTML =========="
+          # HTML Validation
+          echo "========== VALIDATING HTML =========="
           htmlhint "**/*.html" --config config/.htmlhintrc
 
-      - name: Validar Código CSS
+      - name: CSS Validation
         run: | 
-          # Css Validation
-          # Lista todos os arquivos .css e verifica se existe pelo menos 1
+          # CSS Validation
+          # List all .css files and check if at least 1 exists
           if find . -name "*.css" | grep -q .; then
 
-            echo "========== VALIDANDO CSS =========="
+            echo "========== VALIDATING CSS =========="
 
             stylelint "**/*.css" \
               --config config/.stylelintrc.json \
               --config-basedir .
 
           else
-            echo "Nenhum arquivo CSS encontrado"
+            echo "No .css files found"
           fi
       
-      - name: Validar Código JavaScript
+      - name: JavaScript Validation
         run: | 
           # JavaScript Validation
-          # Lista todos os arquivos .js e verifica se existe pelo menos 1
+          # List all .js files and check if at least 1 exists
           if find . -name "*.js" | grep -q .; then
-            echo "========== VALIDANDO JAVASCRIPT =========="
+            echo "========== VALIDATING JAVASCRIPT =========="
             eslint "**/*.js" --config config/.eslintrc.json
           else
-            echo "Nenhum arquivo JS encontrado"
+            echo "No .js files found"
           fi       
+
+      - name: Validating File Structure
+        run: |
+          echo "In Development"
+
+          echo "========== VALIDATING STRUCTURE =========="
+
+          # Main file index.html
+          [ -f "index.html" ] || (echo "index.html not found" && exit 1)
+
+          # Required folders
+          [ -d "pages" ] || (echo "pages folder not found" && exit 1)
+          [ -d "config" ] || (echo "config folder not found" && exit 1)
+          [ -d "src" ] || (echo "src folder not found" && exit 1)
+
+          # src subfolders
+          [ -d "src/components" ] || (echo "src/components not found" && exit 1)
+          [ -d "src/images" ] || (echo "src/images not found" && exit 1)
+          [ -d "src/scripts" ] || (echo "src/scripts not found" && exit 1)
+          [ -d "src/styles" ] || (echo "src/styles not found" && exit 1)
+
+          echo "Structure OK"
