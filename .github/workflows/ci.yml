@@ -37,7 +37,7 @@ jobs:
         run: | 
           # HTML Validation
           echo "========== VALIDATING HTML =========="
-          htmlhint find . -name "*.html" --config config/.htmlhintrc
+          htmlhint "**/*.html" --config config/.htmlhintrc
 
       - name: CSS Validation
         run: | 
