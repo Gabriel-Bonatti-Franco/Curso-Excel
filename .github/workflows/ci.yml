@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
     
 jobs:
-  build_and_test:
+  Analise_Lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,17 +37,17 @@ jobs:
         run: | 
           # HTML Validation
           echo "========== VALIDATING HTML =========="
-          htmlhint "**/*.html" --config config/.htmlhintrc
+          htmlhint (find . -name "*.html") --config config/.htmlhintrc
 
       - name: CSS Validation
         run: | 
           # CSS Validation
           # List all .css files and check if at least 1 exists
-          if find . -name "*.css" | grep -q .; then
+          if (find . -name "*.css") | grep -q .; then
 
             echo "========== VALIDATING CSS =========="
 
-            stylelint "**/*.css" \
+            stylelint (find . -name "*.css") \
               --config config/.stylelintrc.json \
               --config-basedir .
 
@@ -59,20 +59,27 @@ jobs:
         run: | 
           # JavaScript Validation
           # List all .js files and check if at least 1 exists
-          if find . -name "*.js" | grep -q .; then
+          if (find . -name "*.js") | grep -q .; then
             echo "========== VALIDATING JAVASCRIPT =========="
             eslint "**/*.js" --config config/.eslintrc.json
           else
             echo "No .js files found"
-          fi       
+          fi  
+
+  Analise_de_Estrutura:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
 
       - name: Validating File Structure
-        run: |
+        run: | 
           echo "========== VALIDATING STRUCTURE =========="
 
           # Main file index.html
           [ -f "index.html" ] || (echo "❌ index.html not found" && exit 1)
-          echo "✅ index.htlm file check"
+          echo "✅ index.html file check"
 
           # Required folders
           [ -d "pages" ] || (echo "❌ pages folder not found" && exit 1)
@@ -98,3 +105,24 @@ jobs:
           echo "✅ src/styles folder check"
           
           echo "✅ All File Structure cheked"
+
+      - name: Validating script file location
+        run: | 
+          if find . -name "*.js" \
+          ! -path "./src/scripts/*" \
+          ! -path "./src/components/*" \
+          ! -path "./.git/*" \
+          ! -path "./.github/*" \
+          | grep -q .; then
+            echo "JS files found outside allowed directories (src/scripts, src/components)"
+            exit 1
+          fi
+
+      - name: Validating style file location
+        run: | 
+          if find . -name "*.css" \
+          ! -path "./src/styles/*" \
+          | grep -q .; then
+            echo "CSS files found outside src/styles"
+            exit 1
+          fi
