@@ -1,5 +1,3 @@
-![CI](https://github.com/USER/REPO/actions/workflows/ci.yml/badge.svg)
-
 1. ### Interface e navegação no Microsoft Excel
     Aprenda a conhecer o ambiente do Excel, incluindo a fita de opções, painéis, abas e atalhos de teclado essenciais para navegar eficientemente pela planilha.
 

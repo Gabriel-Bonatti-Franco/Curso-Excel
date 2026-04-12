@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
     
 jobs:
-  Analise_Lint:
+  Code-Analysis:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,17 +37,17 @@ jobs:
         run: | 
           # HTML Validation
           echo "========== VALIDATING HTML =========="
-          htmlhint (find . -name "*.html") --config config/.htmlhintrc
+          htmlhint find . -name "*.html" --config config/.htmlhintrc
 
       - name: CSS Validation
         run: | 
           # CSS Validation
           # List all .css files and check if at least 1 exists
-          if (find . -name "*.css") | grep -q .; then
+          if find . -name "*.css" | grep -q .; then
 
             echo "========== VALIDATING CSS =========="
 
-            stylelint (find . -name "*.css") \
+            stylelint find . -name "*.css" \
               --config config/.stylelintrc.json \
               --config-basedir .
 
@@ -59,15 +59,16 @@ jobs:
         run: | 
           # JavaScript Validation
           # List all .js files and check if at least 1 exists
-          if (find . -name "*.js") | grep -q .; then
+          if find . -name "*.js" | grep -q .; then
             echo "========== VALIDATING JAVASCRIPT =========="
-            eslint "**/*.js" --config config/.eslintrc.json
+            eslint find . -name "*.js" --config config/.eslintrc.json
           else
             echo "No .js files found"
           fi  
 
-  Analise_de_Estrutura:
+  File-Structure-Analysis:
     runs-on: ubuntu-latest
+    needs: [Code-Analysis]
 
     steps:
       - name: Code Checkout
