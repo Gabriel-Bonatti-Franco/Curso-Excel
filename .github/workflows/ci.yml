@@ -68,22 +68,33 @@ jobs:
 
       - name: Validating File Structure
         run: |
-          echo "In Development"
-
           echo "========== VALIDATING STRUCTURE =========="
 
           # Main file index.html
-          [ -f "index.html" ] || (echo "index.html not found" && exit 1)
+          [ -f "index.html" ] || (echo "❌ index.html not found" && exit 1)
+          echo "✅ index.htlm file check"
 
           # Required folders
-          [ -d "pages" ] || (echo "pages folder not found" && exit 1)
-          [ -d "config" ] || (echo "config folder not found" && exit 1)
-          [ -d "src" ] || (echo "src folder not found" && exit 1)
+          [ -d "pages" ] || (echo "❌ pages folder not found" && exit 1)
+          echo "✅ pages folder check"
+
+          [ -d "config" ] || (echo "❌ config folder not found" && exit 1)
+          echo "✅ config folder check"
+
+          [ -d "src" ] || (echo "❌ src folder not found" && exit 1)
+          echo "✅ src folder check"
 
           # src subfolders
-          [ -d "src/components" ] || (echo "src/components not found" && exit 1)
-          [ -d "src/images" ] || (echo "src/images not found" && exit 1)
-          [ -d "src/scripts" ] || (echo "src/scripts not found" && exit 1)
-          [ -d "src/styles" ] || (echo "src/styles not found" && exit 1)
+          [ -d "src/components" ] || (echo "❌ src/components not found" && exit 1)
+          echo "✅ src/components folder check"
 
-          echo "Structure OK"
+          [ -d "src/images" ] || (echo "❌ src/images not found" && exit 1)
+          echo "✅ src/images folder check"
+          
+          [ -d "src/scripts" ] || (echo "❌ src/scripts not found" && exit 1)
+          echo "✅ src/scripts folder check"
+          
+          [ -d "src/styles" ] || (echo "❌ src/styles not found" && exit 1)
+          echo "✅ src/styles folder check"
+          
+          echo "✅ All File Structure cheked"
