@@ -8,3 +8,9 @@ body{
 .content{
     padding: 0 20px;
 }
+
+iframe .aula {
+    width: 100%;
+    background-color: #efefef;
+    border-radius: 20px;
+}
