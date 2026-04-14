@@ -2,7 +2,6 @@ class MainMenu extends HTMLElement {
   async connectedCallback() {
     // shadow DOM isola o CSS do componente
     const shadow = this.attachShadow({ mode: 'open' });
-    console.log(this.textContent)
 
     // Busca o HTML externo e injeta no Shadow DOM
     const res = await fetch('/src/components/main_menu/main_menu.html');

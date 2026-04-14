@@ -4,7 +4,6 @@ class MainBanner extends HTMLElement {
     const shadow = this.attachShadow({ mode: 'open' });
 
     const text_content = this.getHTML()
-    console.log(text_content)
 
     // Busca o HTML externo e injeta no Shadow DOM
     const res = await fetch('/src/components/banner/banner.html');

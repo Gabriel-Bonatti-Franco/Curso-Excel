@@ -1,13 +1,12 @@
-class Carrossel extends HTMLElement {
+class CardCarrossel extends HTMLElement {
   async connectedCallback() {
     // shadow DOM isola o CSS do componente
     const shadow = this.attachShadow({ mode: 'open' });
 
     const text_content = this.getHTML()
-    console.log(text_content)
 
     // Busca o HTML externo e injeta no Shadow DOM
-    const res = await fetch('/src/components/carrossel/carrossel.html');
+    const res = await fetch('/src/components/card_carrossel/card_carrossel.html');
     const html = await res.text();
 
     shadow.innerHTML = html;
@@ -15,4 +14,4 @@ class Carrossel extends HTMLElement {
   }
 }
 
-customElements.define('carrossel', Carrossel);
+customElements.define('card-carrossel', CardCarrossel);
