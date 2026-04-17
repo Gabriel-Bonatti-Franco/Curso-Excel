@@ -6,15 +6,29 @@
     <title>Curso de Excel</title>
 
     <script src="/src/components/main_menu/main_menu.js" defer></script>
+    <script src="/src/components/banner/banner.js" defer></script>
+    <script src="/src/components/card_carrossel/card_carrossel.js" defer></script>
+
     <link rel="stylesheet" href="/src/styles/style.css">
 
 </head>
 <body>
     <main-menu></main-menu>
     <div class="content">
-        <p>Bem-vindo ao curso de Excel. Aqui você aprenderá a utilizar esta poderosa ferramenta para gerenciar e analisar dados de maneira eficiente.</p>
+        <main-banner>
+            <div>
+                <h1>Domine o Excel do Básico ao Avançado</h1>
+                <p>Aulas praticas em video e artigos para você se tornar um expert em planilhas</p>
+            </div>
+            <img src="\src\images\excel-icon.png" alt="">
+        </main-banner>
 
-        
+        <card-carrossel>
+            <div class="card">Aula 1</div>
+            <div class="card">Aula 2</div>
+            <div class="card">Aula 3</div>
+            <div class="card">Aula 4</div>
+        </card-carrossel>
 
     </div>
 </body>
