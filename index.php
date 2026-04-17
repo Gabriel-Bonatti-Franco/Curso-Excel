@@ -30,6 +30,10 @@
             <div class="card"><strong>Referências relativas e absolutas</strong></div>
         </card-carrossel>
 
+        <?php 
+            echo "Testando PHP"
+        ?>
+
     </div>
 </body>
 </html>
