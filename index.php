@@ -30,6 +30,10 @@
             <div class="card">Aula 4</div>
         </card-carrossel>
 
+        <?php 
+            echo "Testando PHP"
+        ?>
+
     </div>
 </body>
 </html>
