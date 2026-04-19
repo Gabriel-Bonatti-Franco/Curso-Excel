@@ -14,6 +14,9 @@
 </head>
 <body>
     <main-menu></main-menu>
+    <?php
+        include '/src/components/main_menu/main_menu.html';
+    ?>
     <div class="content">
         <main-banner>
             <div>
@@ -31,7 +34,7 @@
         </card-carrossel>
 
         <?php 
-            echo "Hello World!";
+            echo "Testando Rebuild...";
         ?>
 
     </div>

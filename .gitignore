@@ -1,1 +1,4 @@
 git_commit_push.bat
+docker_deploy.bat
+
+*.log
