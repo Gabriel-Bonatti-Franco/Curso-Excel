@@ -163,10 +163,11 @@ jobs:
             component=$(basename "$dir")
 
             html_file="$dir/$component.html"
+            php_file="$dir/$component.php"
             js_file="$dir/$component.js"
 
-          if [ ! -f "$html_file" ]; then
-            echo "Missing HTML file in $component"
+          if [ ! -f "$html_file" ] && [ ! -f "$php_file" ]; then
+            echo "Missing HTML/PHP  file in $component"
             exit 1
           fi
 
