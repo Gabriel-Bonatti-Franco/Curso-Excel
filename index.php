@@ -32,7 +32,7 @@
 
         <?php 
             echo "Hello World!";
-        >
+        ?>
 
     </div>
 </body>
