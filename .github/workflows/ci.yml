@@ -66,6 +66,19 @@ jobs:
             echo "No .js files found"
           fi  
 
+      - name: PHP Sintax Validation
+        run: | 
+          # PHP Sintax Validation
+          # List all .php files and check if at least 1 exists
+          if find . -name "*.php" | grep -q .; then
+            echo "========== VALIDATING PHP =========="
+            for file in $(find . -name "*.php"); do
+              php -l "$file" || exit 1
+            done
+          else
+            echo "No .php files found"
+          fi  
+
   File-Structure-Analysis:
     runs-on: ubuntu-latest
     needs: [Code-Analysis]
@@ -78,32 +91,36 @@ jobs:
         run: | 
           echo "========== VALIDATING STRUCTURE =========="
 
-          # Main file index.html
-          [ -f "index.html" ] || (echo "index.html not found" && exit 1)
-          echo "✓ index.html file check"
+          # Main file index
+          if [ -f "index.html" ] || [ -f "index.php" ]; then
+            echo "✓ index file check"
+          else
+            echo "index file found"
+            exit 1
+          fi
 
           # Required folders
-          [ -d "pages" ] || (echo "pages folder not found" && exit 1)
+          [ -d "pages" ] || { echo "pages folder not found"; exit 1; }
           echo "✓ pages folder check"
 
-          [ -d "config" ] || (echo "config folder not found" && exit 1)
-          echo "✓ config folder check"
+            [ -d "config" ] || { echo "config folder not found"; exit 1; }
+            echo "✓ config folder check"
 
-          [ -d "src" ] || (echo "src folder not found" && exit 1)
-          echo "✓ src folder check"
+            [ -d "src" ] || { echo "src folder not found"; exit 1; }
+            echo "✓ src folder check"
 
-          # src subfolders
-          [ -d "src/components" ] || (echo "src/components not found" && exit 1)
-          echo "✓ src/components folder check"
+            # src subfolders
+            [ -d "src/components" ] || { echo "src/components not found"; exit 1; }
+            echo "✓ src/components folder check"
 
-          [ -d "src/images" ] || (echo "src/images not found" && exit 1)
-          echo "✓ src/images folder check"
-          
-          [ -d "src/scripts" ] || (echo "src/scripts not found" && exit 1)
-          echo "✓ src/scripts folder check"
-          
-          [ -d "src/styles" ] || (echo "src/styles not found" && exit 1)
-          echo "✓ src/styles folder check"
+            [ -d "src/images" ] || { echo "src/images not found"; exit 1; }
+            echo "✓ src/images folder check"
+            
+            [ -d "src/scripts" ] || { echo "src/scripts not found"; exit 1; }
+            echo "✓ src/scripts folder check"
+            
+            [ -d "src/styles" ] || { echo "src/styles not found"; exit 1; }
+            echo "✓ src/styles folder check"
           
           echo "✓ All File Structure cheked"
 
@@ -146,10 +163,11 @@ jobs:
             component=$(basename "$dir")
 
             html_file="$dir/$component.html"
+            php_file="$dir/$component.php"
             js_file="$dir/$component.js"
 
-          if [ ! -f "$html_file" ]; then
-            echo "Missing HTML file in $component"
+          if [ ! -f "$html_file" ] && [ ! -f "$php_file" ]; then
+            echo "Missing HTML/PHP  file in $component"
             exit 1
           fi
 

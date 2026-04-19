@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    container_name: curso-excel-php
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
