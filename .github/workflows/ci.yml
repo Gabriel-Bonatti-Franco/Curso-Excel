@@ -72,8 +72,9 @@ jobs:
           # List all .php files and check if at least 1 exists
           if find . -name "*.php" | grep -q .; then
             echo "========== VALIDATING PHP =========="
-            find . -name "*.php" -exec php -l {} \;
-            # For .php file execute "php -l filename.php;"
+            for file in $(find . -name "*.php"); do
+              php -l "$file" || exit 1
+            done
           else
             echo "No .php files found"
           fi  
