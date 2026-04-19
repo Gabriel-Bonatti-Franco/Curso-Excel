@@ -6,7 +6,3 @@ docker_deploy.bat
 git_commit_push.bat
 config
 README.md
-
-docker-compose.yml
-Dockerfile
-.dockerignore
