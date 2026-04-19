@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso de Excel</title>
 
-    <script src="/src/components/main_menu/main_menu.js" defer></script>
     <link rel="stylesheet" href="/src/styles/style.css">
-
+    
 </head>
 <body>
-    <main-menu></main-menu>
+    <?php
+        require '../src/components/main_menu/main_menu.html';
+    ?>
+
     <div class="content">
-        <h1>Contato</h1>
+        <h1>Aulas</h1>
     </div>
 </body>
 </html>
