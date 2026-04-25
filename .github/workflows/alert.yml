@@ -1,4 +1,4 @@
-name: Alerts - Commits Alerts
+name: Alerts
 
 on:
   workflow_run:
@@ -16,18 +16,35 @@ jobs:
 
       - name: Run Discord Webhook
         run: |
-          if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
-            STATUS="🟢 Success"
-          else
-            STATUS="🔴 Failure"
-          fi
+            EVENT="${{ github.event.workflow_run.event }}"
+            STATUS="${{ github.event.workflow_run.conclusion }}"
+            URL="${{ github.event.workflow_run.html_url }}"
 
-          curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{
-            \"content\": \"📦 Repo: ${{ github.repository }}\n\
-            🔀 Branch: ${{ github.ref_name }}\n\
-            👤 Autor: ${{ github.actor }}\n\
-            📊 Status: $STATUS\"
-            }" \
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
+            if [ "$STATUS" = "success" ]; then
+                ICON="🟢"
+            else
+                ICON="🔴"
+            fi
+
+            if [ "$EVENT" = "push" ]; then
+            MESSAGE="🚀 PUSH detectado\n\n\
+                📦 Repo: ${{ github.repository }}\n\n\
+                🔀 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
+                📊 Status: $ICON $STATUS\n\n\
+                🔗 $URL" \
+            WEBHOOK=${{ secrets.COMMIT_DISCORD_WEBHOOK_URL }}
+            
+            elif [ "$EVENT" = "pull_request" ]; then
+            MESSAGE="🔀 PULL REQUEST\n\
+                📦 Repo: ${{ github.repository }}\n\n\
+                🌿 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
+                👤 Autor: ${{ github.event.workflow_run.actor.login }}\n\n\
+                📊 Status: $ICON $STATUS\n\n\
+                🔗 $URL"
+            WEBHOOK=${{ secrets.PULL_DISCORD_WEBHOOK_URL }}
+            fi
+
+            curl -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"content\": \"$MESSAGE\"}" \
+            $WEBHOOK
