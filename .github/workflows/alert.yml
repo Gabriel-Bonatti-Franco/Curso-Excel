@@ -27,24 +27,29 @@ jobs:
             fi
 
             if [ "$EVENT" = "push" ]; then
-            MESSAGE="🚀 PUSH detectado\n\n\
-                📦 Repo: ${{ github.repository }}\n\n\
-                🔀 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
-                📊 Status: $ICON $STATUS\n\n\
-                🔗 $URL" \
-            WEBHOOK=${{ secrets.COMMIT_DISCORD_WEBHOOK_URL }}
+                WEBHOOK=${{ secrets.COMMIT_DISCORD_WEBHOOK_URL }}
+                MESSAGE="🆕 PUSH detectado\n\n\
+            📦 Repo: ${{ github.repository }}\n\n\
+            🌿 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
+            👤 Autor: ${{ github.event.workflow_run.actor.login }}\n\n\
+            🎯 Status: $ICON $STATUS\n\n\
+            🔗 $URL"
             
             elif [ "$EVENT" = "pull_request" ]; then
-            MESSAGE="🔀 PULL REQUEST\n\
-                📦 Repo: ${{ github.repository }}\n\n\
-                🌿 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
-                👤 Autor: ${{ github.event.workflow_run.actor.login }}\n\n\
-                📊 Status: $ICON $STATUS\n\n\
-                🔗 $URL"
-            WEBHOOK=${{ secrets.PULL_DISCORD_WEBHOOK_URL }}
-            fi
+                WEBHOOK=${{ secrets.PULL_DISCORD_WEBHOOK_URL }}
+                MESSAGE="🔀 PULL REQUEST\n\n\
+            📦 Repo: ${{ github.repository }}\n\n\
+            🌿 Branch: ${{ github.event.workflow_run.head_branch }}\n\n\
+            👤 Autor: ${{ github.event.workflow_run.actor.login }}\n\n\
+            🎯 Status: $ICON $STATUS\n\n\
+            🔗 $URL"
 
+            else
+                echo "Evento não tratado: $EVENT"
+                exit 0
+            fi
+      
             curl -H "Content-Type: application/json" \
             -X POST \
             -d "{\"content\": \"$MESSAGE\"}" \
-            $WEBHOOK
+            "$WEBHOOK"
