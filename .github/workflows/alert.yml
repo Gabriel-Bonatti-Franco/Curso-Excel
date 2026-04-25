@@ -1,0 +1,33 @@
+name: Alerts - Commits Alerts
+
+on:
+  workflow_run:
+    workflows: ["CI - Continuous Integration"]
+    types:
+      - completed
+    
+jobs:
+  Send-Messages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Discord Webhook
+        run: |
+          if [ "${{ github.event.workflow_run.conclusion }}" == "success" ]; then
+            STATUS="🟢 Success"
+          else
+            STATUS="🔴 Failure"
+          fi
+
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{
+            \"content\": \"📦 Repo: ${{ github.repository }}\n\
+            🔀 Branch: ${{ github.ref_name }}\n\
+            👤 Autor: ${{ github.actor }}\n\
+            📊 Status: $STATUS\"
+            }" \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
