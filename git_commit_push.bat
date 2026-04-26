@@ -22,8 +22,13 @@ echo Files added to staged changes
 echo.
 
 git status --short
+echo.
+
 git commit -m %1
+echo.
+
 git push
+echo.
 
 echo Commit complete
 echo Done.

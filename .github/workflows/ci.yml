@@ -33,7 +33,7 @@ jobs:
         run: | 
           # HTML Validation
           echo "========== VALIDATING HTML =========="
-          htmlhint "**/*.html" --config config/.htmlhintrc
+          npx htmlhint "**/*.html" --config config/.htmlhintrc
 
       - name: CSS Validation
         run: | 
@@ -43,7 +43,7 @@ jobs:
 
             echo "========== VALIDATING CSS =========="
 
-            stylelint "**/*.css" \
+            npx stylelint "**/*.css" \
               --config config/.stylelintrc.json \
               --config-basedir .
 
@@ -57,7 +57,7 @@ jobs:
           # List all .js files and check if at least 1 exists
           if find . -name "*.js" | grep -q .; then
             echo "========== VALIDATING JAVASCRIPT =========="
-            eslint "**/*.js" --config config/.eslintrc.json
+            npx eslint "**/*.js" --config config/.eslintrc.json
           else
             echo "No .js files found"
           fi  
