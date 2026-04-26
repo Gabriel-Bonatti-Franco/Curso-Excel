@@ -1,37 +1,20 @@
 import js from "@eslint/js";
+import globals from "globals";
 
 export default [
-
-  // Base recomendada
   js.configs.recommended,
 
-  // 🔹 FRONTEND (browser)
   {
     files: ["src/**/*.js"],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: "module",
-      globals: {
-        window: "readonly",
-        document: "readonly",
-        HTMLElement: "readonly",
-        customElements: "readonly",
-        fetch: "readonly"
-      }
+      globals: globals.browser
     }
   },
 
-  // 🔹 TESTES (Jest)
   {
     files: ["tests/**/*.js"],
     languageOptions: {
-      globals: {
-        describe: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly"
-      }
+      globals: globals.jest
     }
   }
 ];
