@@ -39,7 +39,7 @@ jobs:
         run: | 
           # CSS Validation
           # List all .css files and check if at least 1 exists
-          if find . -name "*.css" | grep -q .; then
+          if find . -name "*.css" -print -quit | grep -q .; then
 
             echo "========== VALIDATING CSS =========="
 
@@ -55,9 +55,9 @@ jobs:
         run: | 
           # JavaScript Validation
           # List all .js files and check if at least 1 exists
-          if find . -name "*.js" | grep -q .; then
+          if find . -name "*.js" -print -quit | grep -q .; then
             echo "========== VALIDATING JAVASCRIPT =========="
-            npx eslint "**/*.js" --config config/.eslintrc.json
+            npx eslint "**/*.js" --config config/eslint.config.js
           else
             echo "No .js files found"
           fi  
@@ -66,7 +66,7 @@ jobs:
         run: | 
           # PHP Sintax Validation
           # List all .php files and check if at least 1 exists
-          if find . -name "*.php" | grep -q .; then
+          if find . -name "*.php" -print -quit | grep -q .; then
             echo "========== VALIDATING PHP =========="
             for file in $(find . -name "*.php"); do
               php -l "$file" || exit 1
