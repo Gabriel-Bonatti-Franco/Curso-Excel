@@ -3,7 +3,7 @@ class CardCarrossel extends HTMLElement {
     // shadow DOM isola o CSS do componente
     const shadow = this.attachShadow({ mode: 'open' });
 
-    const text_content = this.getHTML()
+    const text_content = this.innerHTML
 
     // Busca o HTML externo e injeta no Shadow DOM
     const res = await fetch('/src/components/card_carrossel/card_carrossel.html');
