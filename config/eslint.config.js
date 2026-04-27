@@ -4,6 +4,7 @@ import globals from "globals";
 export default [
   js.configs.recommended,
 
+  // 🔹 FRONTEND
   {
     files: ["src/**/*.js"],
     languageOptions: {
@@ -11,10 +12,15 @@ export default [
     }
   },
 
+  // 🔹 TESTES (Jest + DOM)
   {
     files: ["tests/**/*.js"],
     languageOptions: {
-      globals: globals.jest
+      globals: {
+        ...globals.jest,
+        ...globals.browser,
+        global: "readonly"
+      }
     }
   }
 ];
