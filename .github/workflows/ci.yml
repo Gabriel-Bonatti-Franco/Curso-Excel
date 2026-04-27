@@ -129,11 +129,12 @@ jobs:
           ! -path "./src/scripts/*" \
           ! -path "./src/components/*" \
           ! -path "./tests/*" \
+          ! -path "./config/*" \
           ! -path "./node_modules/*" \
           ! -path "./.git/*" \
           ! -path "./.github/*" \
           | grep -q .; then
-            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\n)"
+            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\nconfig/\n)"
             exit 1
           fi
 
