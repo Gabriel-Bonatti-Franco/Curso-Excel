@@ -27,10 +27,26 @@
         </main-banner>
 
         <card-carrossel>
-            <div class="card"><strong>Interface e navegação no Microsoft Excel</strong></div>
-            <div class="card"><strong>Inserção e formatação de dados</strong></div>
-            <div class="card"><strong>Fórmulas Matemáticas (soma, média, etc.)</strong></div>
-            <div class="card"><strong>Referências relativas e absolutas</strong></div>
+            <div class="card">
+                <strong>Aula 01</strong>
+                <p>Interface do Excel</p>
+                <div class="group">Módulo Básico</div>
+            </div>
+            <div class="card">
+                <strong>Aula 02</strong>
+                <p>Tipos de Dados</p>
+                <div class="group">Módulo Básico</div>
+            </div>
+            <div class="card">
+                <strong>Aula 03</strong>
+                <p>Estruturas de Dados</p>
+                <div class="group">Módulo Básico</div>
+            </div>
+            <div class="card">
+                <strong>Aula 04</strong>
+                <p>Fórmulas Básicas</p>
+                <div class="group">Módulo Básico</div>
+            </div>
         </card-carrossel>
 
     </div>
