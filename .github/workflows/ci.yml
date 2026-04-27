@@ -128,10 +128,12 @@ jobs:
           if find . -name "*.js" \
           ! -path "./src/scripts/*" \
           ! -path "./src/components/*" \
+          ! -path "./tests/*" \
+          ! -path "./node_modules/*" \
           ! -path "./.git/*" \
           ! -path "./.github/*" \
           | grep -q .; then
-            echo "JS files found outside allowed directories (src/scripts, src/components)"
+            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\n)"
             exit 1
           fi
 
