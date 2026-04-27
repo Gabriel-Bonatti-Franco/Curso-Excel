@@ -26,8 +26,7 @@ jobs:
           node-version: 24
           
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
 
       - name: HTML Validation
         run: | 
@@ -75,7 +74,23 @@ jobs:
             echo "No .php files found"
           fi
 
-      - name: Jest tests
+  Jest-Tests:
+    runs-on: ubuntu-latest
+    needs: [Code-Analysis]
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests
         run: npm test -- --ci
 
   File-Structure-Analysis:
@@ -129,11 +144,12 @@ jobs:
           ! -path "./src/scripts/*" \
           ! -path "./src/components/*" \
           ! -path "./tests/*" \
+          ! -path "./config/*" \
           ! -path "./node_modules/*" \
           ! -path "./.git/*" \
           ! -path "./.github/*" \
           | grep -q .; then
-            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\n)"
+            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\nconfig/\n)"
             exit 1
           fi
 
