@@ -25,29 +25,25 @@ jobs:
         with:
           node-version: 24
           
-      - name: Install HTMLHint, StyleLint and ESLint
+      - name: Install dependencies
         run: |
-          npm install -g \
-            htmlhint@1 \
-            eslint@8 \
-            stylelint@15 \
-            stylelint-config-standard@34
+          npm install
 
       - name: HTML Validation
         run: | 
           # HTML Validation
           echo "========== VALIDATING HTML =========="
-          htmlhint "**/*.html" --config config/.htmlhintrc
+          npx htmlhint "**/*.html" --config config/.htmlhintrc
 
       - name: CSS Validation
         run: | 
           # CSS Validation
           # List all .css files and check if at least 1 exists
-          if find . -name "*.css" | grep -q .; then
+          if find . -name "*.css" -print -quit | grep -q .; then
 
             echo "========== VALIDATING CSS =========="
 
-            stylelint "**/*.css" \
+            npx stylelint "**/*.css" \
               --config config/.stylelintrc.json \
               --config-basedir .
 
@@ -59,9 +55,9 @@ jobs:
         run: | 
           # JavaScript Validation
           # List all .js files and check if at least 1 exists
-          if find . -name "*.js" | grep -q .; then
+          if find . -name "*.js" -print -quit | grep -q .; then
             echo "========== VALIDATING JAVASCRIPT =========="
-            eslint "**/*.js" --config config/.eslintrc.json
+            npx eslint "**/*.js" --config config/eslint.config.js
           else
             echo "No .js files found"
           fi  
@@ -70,14 +66,17 @@ jobs:
         run: | 
           # PHP Sintax Validation
           # List all .php files and check if at least 1 exists
-          if find . -name "*.php" | grep -q .; then
+          if find . -name "*.php" -print -quit | grep -q .; then
             echo "========== VALIDATING PHP =========="
             for file in $(find . -name "*.php"); do
               php -l "$file" || exit 1
             done
           else
             echo "No .php files found"
-          fi  
+          fi
+
+      - name: Jest tests
+        run: npm test -- --ci
 
   File-Structure-Analysis:
     runs-on: ubuntu-latest
@@ -129,10 +128,12 @@ jobs:
           if find . -name "*.js" \
           ! -path "./src/scripts/*" \
           ! -path "./src/components/*" \
+          ! -path "./tests/*" \
+          ! -path "./node_modules/*" \
           ! -path "./.git/*" \
           ! -path "./.github/*" \
           | grep -q .; then
-            echo "JS files found outside allowed directories (src/scripts, src/components)"
+            echo -e "JS files found outside allowed directories\n(\nsrc/scripts,\nsrc/components,\ntest/,\nnode_modules/\n)"
             exit 1
           fi
 
